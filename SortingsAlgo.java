@@ -12,7 +12,10 @@ public class SortingsAlgo {
             i. ...
      */
 
-    // a. Selection Sort
+    /* a. Selection Sort
+            Time complexity: O(n^2)
+            Space complexity: O(1)
+    */
     public void selectionSort(int[] nums) {
         if (nums == null || nums.length == 0) {
             return;
@@ -33,6 +36,7 @@ public class SortingsAlgo {
         nums[i] = nums[j];
         nums[j] = tmp;
     }
+
 
 
     public static void main(String[] args) {
