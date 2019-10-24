@@ -82,11 +82,41 @@ public class SortingsAlgo {
         return res;
     }
 
+    public int[] quickSort(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return new int[0];
+        }
+        quickHelper(nums, 0, nums.length - 1);
+        return nums;
+    }
+    private void quickHelper(int[] nums, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        int m = 0;
+        for (int p = r; p >= l; p--) {
+            int pivot = nums[p];
+            int i = l;
+            int j = p - 1;
+            while (i <= j) {
+                if (nums[i] < pivot) {
+                    i++;
+                } else {
+                    swap(nums, i, j);
+                    j--;
+                }
+            } // i > j
+            swap(nums, i, p);
+            m = i;
+        }
+        quickHelper(nums, l, m);
+        quickHelper(nums, m + 1, r);
+    }
 
     public static void main(String[] args) {
         SortingsAlgo test = new SortingsAlgo();
-        int[] nums = {4,6,5,2,3,8};
-        nums = test.mergeSort(nums);
+        int[] nums = {4,6,5,2,3};
+        nums = test.quickSort(nums);
         for (int n : nums) {
             System.out.println(n);
         }
