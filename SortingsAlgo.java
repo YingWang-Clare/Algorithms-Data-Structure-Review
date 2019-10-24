@@ -82,6 +82,11 @@ public class SortingsAlgo {
         return res;
     }
 
+    /*
+        c. Quick Sort:
+            Time complexity: O(nlogn), worst case O(n^2)
+            Space complexity: O(log n), since there are (logn) call stacks, and each call stack is O(1) in-place partitioning.
+    */
     public int[] quickSort(int[] nums) {
         if (nums == null || nums.length == 0) {
             return new int[0];
