@@ -37,9 +37,58 @@ public class SortingsAlgo {
         nums[j] = tmp;
     }
 
+    /*
+        b. Merge Sort: divide + merge
+            Time complexity: O(nlogn)
+            Space complexity: O(n), extra space in merge()
+    */
+    public int[] mergeSort(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return new int[0];
+        }
+        nums = divide(nums, 0, nums.length - 1);
+        return nums;
+    }
+    private int[] divide(int[] nums, int l, int r) {
+        // base case: there is only one element in the array
+        if (l == r) {
+            return new int[] {nums[l]};
+        }
+        // recursive rule:
+        int m = l + (r - l) / 2;
+        int[] leftSub = divide(nums, l, m);
+        int[] rightSub = divide(nums, m + 1, r);
+        int[] merged = merge(leftSub, rightSub);
+        return merged;
+    }
+    private int[] merge(int[] left, int[] right) {
+        int[] res = new int[left.length + right.length];
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] < right[j]) {
+                res[k++] = left[i++];
+            } else {
+                res[k++] = right[j++];
+            }
+        }
+        while (i < left.length) {
+            res[k++] = left[i++];
+        }
+        while (j < right.length) {
+            res[k++] = right[j++];
+        }
+        return res;
+    }
 
 
     public static void main(String[] args) {
-
+        SortingsAlgo test = new SortingsAlgo();
+        int[] nums = {4,6,5,2,3,8};
+        nums = test.mergeSort(nums);
+        for (int n : nums) {
+            System.out.println(n);
+        }
     }
 }
