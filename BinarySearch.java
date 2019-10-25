@@ -1,13 +1,8 @@
-import java.util.*;
-
 public class BinarySearch {
     /*
         The classic version of binary search, exit until left > right.
         If the target exists, return the index of the target
         Otherwise, return -1.
-
-        Time complexity: O(log n)
-        Space complexity: O(1)
     */
     public int binarySearch(int[] nums, int target) {
         int left = 0;
@@ -126,70 +121,10 @@ public class BinarySearch {
         }
         return -1;
     }
-
-    /*
-        Find k elements in the array closest to the target number.
-        1 2 3 8 9   target == 4 k == 3  return [1,2,3]
-        Time: O(log n + k)
-    */
-    public List<Integer> kClosestElements(int[] nums, int target, int k) {
-        List<Integer> res = new ArrayList<>();
-        if (k <= 0) {
-            return res;
-        }
-        // do binary search to find the element closest to the target: log n
-        int left = 0;
-        int right = nums.length - 1;
-        int split = -1;
-        while (left + 1 < right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
-                split = mid;
-                break;
-            }
-            if (nums[mid] > target) {
-                right = mid;
-            } else {
-                left = mid;
-            }
-        }
-        if (split == -1) {
-            if (Math.abs(nums[left] - target) > Math.abs(nums[right] - target)) {
-                split = right;
-            } else {
-                split = left;
-            }
-        }
-        res.add(nums[split]);
-        // search and compare from both sides on the split point: k
-        int i = 1;
-        int j = 1;
-        while (split - i >= 0 && split + j < nums.length && res.size() < k) {
-            if (Math.abs(nums[split - i] - target) > Math.abs(nums[split + j] - target)) {
-                res.add(nums[split + j]);
-                j++;
-            } else {
-                res.add(nums[split - i]);
-                i++;
-            }
-        }
-        while (split - i >= 0 && res.size() < k) {
-            res.add(nums[split - i]);
-            i++;
-        }
-        while (split + j < nums.length && res.size() < k) {
-            res.add(nums[split + j]);
-            j++;
-        }
-        return res;
-    }
     public static void main(String[] args) {
         BinarySearch test = new BinarySearch();
-        int[] nums = {1,2,3,8,9};
-        List<Integer> res = test.kClosestElements(nums, 4, 2);
-        for (int n : res) {
-            System.out.println(n);
-        }
-        // System.out.println(res);
+        int[] nums = {4,5,5,5,6,6,7};
+        int res = test.getLastOccurrence(nums, 5);
+        System.out.println(res);
     }
 }

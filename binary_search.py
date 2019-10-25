@@ -94,54 +94,10 @@ def get_last_occurrence(nums, target):
                 l = m + 1
             else:
                 return m
-    return l if nums[l] == target else -1
+    if nums[l] == target:
+        return l
+    return -1
 
-
-# nums = [4,5,5,5,6,6,7]
-# print(get_first_occurrence(nums, 5))
-# print(get_last_occurrence(nums, 7))
-
-'''
-    Find k elements in the array closest to the target number.
-    1 2 3 8 9   target == 4 k == 3  return [1,2,3]
-    Time: O(log n + k)
-'''
-def k_closest_element(nums, target, k):
-    if k <= 0:
-        return []
-    l = 0
-    r = len(nums) - 1
-    spl = -1
-    while l + 1 < r:
-        m = l + (r - l) / 2
-        if nums[m] == target:
-            spl = m
-        if nums[m] < target:
-            l = m
-        else:
-            r = m
-    # post-processing
-    if spl == -1:
-        if abs(target - nums[l]) > abs(target - nums[r]):
-            spl = r
-        else:
-            spl = l
-    res = [nums[spl]]
-    i = j = 1
-    while spl - i >= 0 and spl + j < len(nums) and len(res) < k:
-        if abs(target - nums[spl - i]) > abs(target - nums[spl + j]):
-            res.append(nums[spl + j])
-            j += 1
-        else:
-            res.append(nums[spl - i])
-            i += 1
-    while spl - i >= 0 and len(res) < k:
-        res.append(nums[spl - i])
-        i += 1
-    while spl + j < len(nums) and len(res) < k:
-        res.append(nums[spl + j])
-        j += 1
-    return res
-
-nums = [1,2,3,8,9]
-print(k_closest_element(nums, 4, 3))
+nums = [4,5,5,5,6,6,7]
+print(get_first_occurrence(nums, 5))
+print(get_last_occurrence(nums, 7))
