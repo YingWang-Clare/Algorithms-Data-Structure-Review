@@ -10,3 +10,5 @@ nums[i], nums[j] = nums[j], nums[i]
 for i in range(len(nums) - 1, -1, -1)
 ```
 range(start, end, step)
+
+3. abs(): return the absolute value of a number
